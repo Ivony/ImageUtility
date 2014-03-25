@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>DbUtility3</id>
+    <version>3.1.0-beta</version>
+    <title>DbUtility v3</title>
+    <authors>Ivony</authors>
+    <owners>Ivony</owners>
+    <projectUrl>https://github.com/Ivony/DbUtility</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>DbUtility is a light utility for SQL Server</description>
+    <dependencies>
+      <dependency id="Ivony.Core" version="[1.0.1, 1.1)" />
+    </dependencies>
+  </metadata>
+</package>
