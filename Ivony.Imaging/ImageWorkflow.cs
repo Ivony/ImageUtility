@@ -28,7 +28,7 @@ namespace Ivony.Imaging
 
 
 
-    public ImageWorkflow( string name, IImageCodec codec, ImageProcessTask task, params ImageDeployer deployer )
+    public ImageWorkflow( string name, IImageCodec codec, ImageProcessTask task, ImageDeployer deployer )
     {
       Name = name;
       Codec = codec;

@@ -40,11 +40,5 @@ namespace Ivony.Imaging
 
       return result;
     }
-
-
-    public static ImageDeployer operator +( ImageDeployer x, ImageDeployer y )
-    {
-      return new MulticastImageDeployer( x, y );
-    }
   }
 }

@@ -25,7 +25,7 @@ namespace Ivony.Imaging
     /// <summary>
     /// 获取一般情况下文件的扩展名
     /// </summary>
-    string FileExensions { get; private set; }
+    string FileExensions { get; }
   }
 
 

@@ -56,13 +56,5 @@ namespace Ivony.Imaging
       Directory.CreateDirectory( RootPath );
       return Path.Combine( RootPath, Path.GetFileName( filepath ) );
     }
-
-
-    private string _name;
-
-    public override string Name
-    {
-      get { return _name; }
-    }
   }
 }

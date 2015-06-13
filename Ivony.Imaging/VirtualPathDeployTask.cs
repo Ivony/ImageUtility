@@ -13,10 +13,8 @@ namespace Ivony.Imaging
   public class VirtualPathDeployTask : ImageDeployer
   {
 
-    public VirtualPathDeployTask( string name, string virtualRoot, string physicalRoot = null, string host = null )
+    public VirtualPathDeployTask( string virtualRoot, string physicalRoot = null, string host = null )
     {
-      _name = name;
-
       VirtualRoot = virtualRoot;
       Host = host;
     }
@@ -98,16 +96,5 @@ namespace Ivony.Imaging
     }
 
 
-    private string _name;
-
-
-
-    /// <summary>
-    /// 获取发布任务的名称
-    /// </summary>
-    public override string Name
-    {
-      get { return _name; }
-    }
   }
 }
