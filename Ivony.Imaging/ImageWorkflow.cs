@@ -58,9 +58,6 @@ namespace Ivony.Imaging
       Stream data = await LoadFile( location );
 
 
-      data.Seek( 0, SeekOrigin.Begin );
-
-
       string tempFilepath;
 
       using ( var image = Bitmap.FromStream( data ) )
@@ -94,7 +91,7 @@ namespace Ivony.Imaging
     /// <returns></returns>
     private static async Task<Stream> LoadFile( Uri location )
     {
-      Stream data;
+      MemoryStream data;
       if ( location.IsFile )
       {
         using ( var stream = File.OpenRead( location.LocalPath ) )
@@ -111,6 +108,9 @@ namespace Ivony.Imaging
           data = new MemoryStream( await response.Content.ReadAsByteArrayAsync() );
         }
       }
+
+      data.Seek( 0, SeekOrigin.Begin );
+
       return data;
     }
 

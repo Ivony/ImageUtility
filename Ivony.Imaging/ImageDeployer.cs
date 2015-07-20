@@ -12,7 +12,7 @@ namespace Ivony.Imaging
     /// <param name="filename">文件名</param>
     /// <param name="image">图片对象</param>
     /// <returns>图片访问URL</returns>
-    public abstract Task<string> DeployImageAsync( string filepath );
+    public abstract Task DeployImageAsync( string filepath );
 
     public static ImageDeployer operator +( ImageDeployer x, ImageDeployer y )
     {

@@ -34,7 +34,7 @@ namespace Ivony.Imaging
     }
 
 
-    public async override Task<string> DeployImageAsync( string filepath )
+    public async override Task DeployImageAsync( string filepath )
     {
 
       var destination = GetDestinationPath( filepath );
@@ -46,8 +46,6 @@ namespace Ivony.Imaging
           await sourceStream.CopyToAsync( destinationStream );
         }
       }
-
-      return destination;
 
     }
 

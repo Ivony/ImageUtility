@@ -44,7 +44,7 @@ namespace Ivony.Imaging
     /// </summary>
     /// <param name="filepath">待发布的图片地址</param>
     /// <returns>发布后的 URL</returns>
-    public async override Task<string> DeployImageAsync( string filepath )
+    public async override Task DeployImageAsync( string filepath )
     {
 
       string virtualPath, physicalPath, deployPath = GetDeployPath( filepath );
@@ -79,8 +79,6 @@ namespace Ivony.Imaging
 
         host = HttpContext.Current.Request.Url.GetLeftPart( UriPartial.Authority );
       }
-
-      return new Uri( host + virtualPath ).AbsoluteUri;
     }
 
 
