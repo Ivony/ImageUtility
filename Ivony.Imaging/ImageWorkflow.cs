@@ -64,7 +64,7 @@ namespace Ivony.Imaging
 
         Image result = ProcessImage( context, image );
 
-        await Codec.SaveAsync( result, tempFilepath = GetFilepath( url ) );
+        await Codec.SaveAsync( result, tempFilepath = GetFilepath( context, url ) );
       }
 
 
@@ -123,7 +123,7 @@ namespace Ivony.Imaging
     /// </summary>
     /// <param name="filepath">上传文件名称</param>
     /// <returns></returns>
-    protected virtual string GetFilepath( string filepath )
+    protected virtual string GetFilepath( ImageWorkflowContext context, string filepath )
     {
       return Path.Combine( Path.GetTempPath(), Guid.NewGuid().ToString( "N" ) + Codec.FileExensions );
     }

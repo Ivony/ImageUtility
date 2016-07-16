@@ -37,7 +37,7 @@ namespace Ivony.Imaging
     public async override Task DeployImageAsync( ImageWorkflowContext context, string filepath )
     {
 
-      var destination = GetDestinationPath( filepath );
+      var destination = GetDestinationPath( context, filepath );
 
       using ( var sourceStream = File.OpenRead( filepath ) )
       {
@@ -49,8 +49,11 @@ namespace Ivony.Imaging
 
     }
 
-    protected virtual string GetDestinationPath( string filepath )
+    protected virtual string GetDestinationPath( ImageWorkflowContext context, string filepath )
     {
+
+      filepath = (context.Data["filename"] as string) ?? filepath;
+
       Directory.CreateDirectory( RootPath );
       return Path.Combine( RootPath, Path.GetFileName( filepath ) );
     }
