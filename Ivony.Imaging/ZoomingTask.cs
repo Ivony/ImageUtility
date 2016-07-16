@@ -72,7 +72,7 @@ namespace Ivony.Imaging
     }
 
 
-    public override Image ProcessImage( Image image )
+    public override Image ProcessImage( ImageWorkflowContext context, Image image )
     {
 
       var targetRectangle = GetFitZoomRectangle( image.Size, Size );

@@ -51,6 +51,7 @@
     <Compile Include="ImageProcessTaskChain.cs" />
     <Compile Include="ImageWorkflow.cs" />
     <Compile Include="ImageWorkflowCollection.cs" />
+    <Compile Include="ImageWorkflowContext.cs" />
     <Compile Include="LocalImageDeployer.cs" />
     <Compile Include="ImageProcessTask.cs" />
     <Compile Include="MulticastImageDeployer.cs" />

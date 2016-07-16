@@ -25,7 +25,7 @@ namespace Ivony.Imaging
     /// </summary>
     /// <param name="image">图像对象</param>
     /// <returns></returns>
-    public abstract Image ProcessImage( Image image );
+    public abstract Image ProcessImage( ImageWorkflowContext context, Image image );
 
 
 

@@ -9,10 +9,10 @@ namespace Ivony.Imaging
     /// <summary>
     /// 保存或者部署图片
     /// </summary>
+    /// <param name="context">图片处理上下文对象</param>
     /// <param name="filename">文件名</param>
-    /// <param name="image">图片对象</param>
     /// <returns>图片访问URL</returns>
-    public abstract Task DeployImageAsync( string filepath );
+    public abstract Task DeployImageAsync( ImageWorkflowContext context, string filepath );
 
     public static ImageDeployer operator +( ImageDeployer x, ImageDeployer y )
     {

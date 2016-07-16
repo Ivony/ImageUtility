@@ -29,13 +29,13 @@ namespace Ivony.Imaging
     }
 
 
-    public async override Task DeployImageAsync( string filepath )
+    public async override Task DeployImageAsync( ImageWorkflowContext context, string filepath )
     {
 
       string result = null;
       foreach ( var item in deployers )
       {
-        await item.DeployImageAsync( filepath );
+        await item.DeployImageAsync( context, filepath );
       }
     }
   }

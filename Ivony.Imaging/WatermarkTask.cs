@@ -33,7 +33,7 @@ namespace Ivony.Imaging
     }
 
 
-    public override Image ProcessImage( Image image )
+    public override Image ProcessImage( ImageWorkflowContext context, Image image )
     {
       using ( var watermark = LoadWatermark() )
       {

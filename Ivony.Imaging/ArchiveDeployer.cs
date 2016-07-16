@@ -16,7 +16,7 @@ namespace Ivony.Imaging
       throw new NotImplementedException();
     }
 
-    public override async Task DeployImageAsync( string filepath )
+    public override async Task DeployImageAsync( ImageWorkflowContext context, string filepath )
     {
 
       GetArchive().CreateEntryFromFile( filepath, CreateName() );

@@ -45,7 +45,7 @@ namespace Ivony.Imaging
     /// </summary>
     /// <param name="url">要处理的图片地址</param>
     /// <returns>图片发布后的 URL</returns>
-    public async Task ProcessAsync( string url )
+    public async Task ProcessAsync( string url, IDictionary<string, object> data = null )
     {
 
       Uri location;
@@ -54,32 +54,32 @@ namespace Ivony.Imaging
         throw new ArgumentException( "url 参数必须为一个合法有效的绝对 URL", "url" );
 
 
+      Stream stream = await LoadFile( location );
 
-      Stream data = await LoadFile( location );
-
+      var context = new ImageWorkflowContext( this, url, data ?? new Dictionary<string, object>() );
 
       string tempFilepath;
-
-      using ( var image = Bitmap.FromStream( data ) )
+      using ( var image = Bitmap.FromStream( stream ) )
       {
-        Image result;
 
-        var task = GetProcessTask( image );
-        if ( task == null )
-        {
-          result = image;
-        }
-        else
-        {
-          result = task.ProcessImage( image );
-        }
+        Image result = ProcessImage( context, image );
 
         await Codec.SaveAsync( result, tempFilepath = GetFilepath( url ) );
       }
 
 
-      await Deployer.DeployImageAsync( tempFilepath );
+      await Deployer.DeployImageAsync( context, tempFilepath );
       File.Delete( tempFilepath );
+    }
+
+
+    protected virtual Image ProcessImage( ImageWorkflowContext context, Image image )
+    {
+
+      if ( Task == null )
+        return image;
+      else
+        return Task.ProcessImage( context, image );
     }
 
 
@@ -112,11 +112,6 @@ namespace Ivony.Imaging
       data.Seek( 0, SeekOrigin.Begin );
 
       return data;
-    }
-
-    protected virtual ImageProcessTask GetProcessTask( Image image )
-    {
-      return Task;
     }
 
 
