@@ -105,6 +105,7 @@ namespace Ivony.Imaging
         using ( var client = new HttpClient() )
         {
           var response = await client.GetAsync( location.AbsoluteUri );
+          response.EnsureSuccessStatusCode();
           data = new MemoryStream( await response.Content.ReadAsByteArrayAsync() );
         }
       }
