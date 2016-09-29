@@ -21,10 +21,20 @@ namespace Ivony.Imaging
 
 
     /// <summary>
-    /// 指定图像处理任务
+    /// 执行图像处理任务
     /// </summary>
     /// <param name="image">图像对象</param>
-    /// <returns></returns>
+    /// <returns>处理后的图像</returns>
+    public Image ProcessImage( Image image )
+    {
+      return ProcessImage( ImageWorkflowContext.CreateEmpty(), image );
+    }
+
+    /// <summary>
+    /// 执行图像处理任务
+    /// </summary>
+    /// <param name="image">图像对象</param>
+    /// <returns>处理后的图像</returns>
     public abstract Image ProcessImage( ImageWorkflowContext context, Image image );
 
 

@@ -44,5 +44,14 @@ namespace Ivony.Imaging
     /// </summary>
     public IDictionary<string, object> Data { get; private set; }
 
+
+
+    /// <summary>
+    /// 创建一个空白的 ImageWorkflowContext
+    /// </summary>
+    public static ImageWorkflowContext CreateEmpty()
+    {
+      return new ImageWorkflowContext( null, null, null );
+    }
   }
 }
