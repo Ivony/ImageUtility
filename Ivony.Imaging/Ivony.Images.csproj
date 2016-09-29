@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveDeployer.cs" />
+    <Compile Include="HashbasedImageWorkflow.cs" />
     <Compile Include="ImageDeployer.cs" />
     <Compile Include="ImageCodec.cs" />
     <Compile Include="ImageProcessTaskChain.cs" />

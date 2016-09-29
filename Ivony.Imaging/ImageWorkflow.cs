@@ -64,13 +64,15 @@ namespace Ivony.Imaging
 
         Image result = ProcessImage( context, image );
 
-        await Codec.SaveAsync( result, tempFilepath = GetFilepath( context, url ) );
+        tempFilepath = await SaveImage( context, result );
       }
 
 
       await Deployer.DeployImageAsync( context, tempFilepath );
       File.Delete( tempFilepath );
     }
+
+
 
 
     protected virtual Image ProcessImage( ImageWorkflowContext context, Image image )
@@ -81,6 +83,30 @@ namespace Ivony.Imaging
       else
         return Task.ProcessImage( context, image );
     }
+
+
+    protected virtual async Task<string> SaveImage( ImageWorkflowContext context, Image image )
+    {
+
+      var stream = new MemoryStream();
+      await Codec.SaveAsync( image, stream );
+
+      var imageData = stream.ToArray();
+
+      var filepath = GetFilepath( context, imageData );
+      Directory.CreateDirectory( Path.GetDirectoryName( filepath ) );
+
+      using ( var fileStream = File.OpenWrite( filepath ) )
+      {
+        await fileStream.WriteAsync( imageData, 0, imageData.Length );
+      }
+
+
+      return filepath;
+    }
+
+
+
 
 
 
@@ -124,7 +150,7 @@ namespace Ivony.Imaging
     /// </summary>
     /// <param name="filepath">上传文件名称</param>
     /// <returns></returns>
-    protected virtual string GetFilepath( ImageWorkflowContext context, string filepath )
+    protected virtual string GetFilepath( ImageWorkflowContext context, byte[] imageData )
     {
       return Path.Combine( Path.GetTempPath(), Guid.NewGuid().ToString( "N" ) + Codec.FileExensions );
     }

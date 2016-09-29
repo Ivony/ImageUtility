@@ -17,9 +17,9 @@ namespace Ivony.Imaging
     /// 将图像编码保存为图像文件
     /// </summary>
     /// <param name="image">图像对象</param>
-    /// <param name="filepath">要保存的路径</param>
+    /// <param name="stream">要写入的流对象</param>
     /// <returns></returns>
-    Task SaveAsync( Image image, string filepath );
+    Task SaveAsync( Image image, Stream stream );
 
 
     /// <summary>
@@ -73,21 +73,12 @@ namespace Ivony.Imaging
     /// 图片文件另存为
     /// </summary>
     /// <param name="image">图像对象</param>
-    /// <param name="filepath">要保存的路径</param>
+    /// <param name="stream">要写入的流对象</param>
     /// <returns></returns>
-    public async Task SaveAsync( Image image, string filepath )
+    public Task SaveAsync( Image image, Stream stream )
     {
-      var stream = new MemoryStream();
       image.Save( stream, CodecInfo, CodecParameters );
-
-      Directory.CreateDirectory( Path.GetDirectoryName( filepath ) );
-
-      var imageData = stream.ToArray();
-
-      using ( var fileStream = File.OpenWrite( filepath ) )
-      {
-        await fileStream.WriteAsync( imageData, 0, imageData.Length );
-      }
+      return Task.FromResult( (object) null );
     }
 
 
