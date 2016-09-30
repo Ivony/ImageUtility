@@ -15,12 +15,6 @@ namespace Ivony.Imaging
   {
 
     /// <summary>
-    /// 任务名称
-    /// </summary>
-    public abstract string Name { get; }
-
-
-    /// <summary>
     /// 执行图像处理任务
     /// </summary>
     /// <param name="image">图像对象</param>

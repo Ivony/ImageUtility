@@ -45,11 +45,6 @@ namespace Ivony.Imaging
     protected ImageProcessTask[] ImageTasks { get; private set; }
 
 
-    public override string Name
-    {
-      get { return string.Join( "+", ImageTasks.Select( task => task.Name ) ); }
-    }
-
     public override Image ProcessImage( ImageWorkflowContext context, Image image )
     {
       foreach ( ImageProcessTask task in ImageTasks )
