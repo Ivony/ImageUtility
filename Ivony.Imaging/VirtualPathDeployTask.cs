@@ -13,10 +13,11 @@ namespace Ivony.Imaging
   public class VirtualPathDeployTask : ImageDeployer
   {
 
-    public VirtualPathDeployTask( string virtualRoot, string physicalRoot = null, string host = null )
+    public VirtualPathDeployTask( string virtualRoot = null, string physicalRoot = null, string key = "virtualpath-deployer" )
     {
-      VirtualRoot = virtualRoot;
-      Host = host;
+      VirtualRoot = virtualRoot ?? "~/";
+      PhysicalRoot = physicalRoot;
+      TargetPathKey = key;
     }
 
 
@@ -33,17 +34,16 @@ namespace Ivony.Imaging
 
 
     /// <summary>
-    /// 发布站点地址
+    /// 目标路径存放的字典键位置
     /// </summary>
-    public string Host { get; private set; }
-
+    public string TargetPathKey { get; }
 
 
     /// <summary>
     /// 发布指定位置的图片
     /// </summary>
     /// <param name="filepath">待发布的图片地址</param>
-    /// <returns>发布后的 URL</returns>
+    /// <returns></returns>
     public async override Task DeployImageAsync( ImageWorkflowContext context, string filepath )
     {
 
@@ -70,15 +70,9 @@ namespace Ivony.Imaging
       }
 
 
-      string host = Host;
+      context.Data[TargetPathKey] = virtualPath;
+      context.Data[TargetPathKey + ".physical"] = physicalPath;
 
-      if ( host == null )
-      {
-        if ( HttpContext.Current == null )
-          throw new InvalidOperationException();
-
-        host = HttpContext.Current.Request.Url.GetLeftPart( UriPartial.Authority );
-      }
     }
 
 
