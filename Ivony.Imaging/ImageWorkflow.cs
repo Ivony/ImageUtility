@@ -45,7 +45,7 @@ namespace Ivony.Imaging
     /// </summary>
     /// <param name="url">要处理的图片地址</param>
     /// <returns>图片发布后的 URL</returns>
-    public async Task ProcessAsync( string url, IDictionary<string, object> data = null )
+    public async Task<IDictionary<string, object>> ProcessAsync( string url, IDictionary<string, object> data = null )
     {
 
       Uri location;
@@ -54,27 +54,51 @@ namespace Ivony.Imaging
         throw new ArgumentException( "url 参数必须为一个合法有效的绝对 URL", "url" );
 
 
+      data = data ?? new Dictionary<string, object>();
+      data["source-url"] = url;
+
       Stream stream = await LoadFile( location );
-
-      var context = new ImageWorkflowContext( this, url, data ?? new Dictionary<string, object>() );
-
-      string tempFilepath;
-      using ( var image = Bitmap.FromStream( stream ) )
-      {
-
-        Image result = ProcessImage( context, image );
-
-        tempFilepath = await SaveImage( context, result );
-      }
-
-
-      await Deployer.DeployImageAsync( context, tempFilepath );
-      File.Delete( tempFilepath );
+      return await ProcessAsync( stream, data );
     }
 
 
 
+    /// <summary>
+    /// 异步处理图片文件
+    /// </summary>
+    /// <param name="stream">要处理的图片文件流</param>
+    /// <returns>图片发布后的 URL</returns>
+    public async Task<IDictionary<string, object>> ProcessAsync( Stream stream, IDictionary<string, object> data = null )
+    {
+      using ( stream )
+      {
 
+        var context = new ImageWorkflowContext( this, data ?? new Dictionary<string, object>() );
+
+        string tempFilepath;
+        using ( var image = Bitmap.FromStream( stream ) )
+        {
+
+          Image result = ProcessImage( context, image );
+
+          tempFilepath = await SaveImage( context, result );
+        }
+
+
+        await Deployer.DeployImageAsync( context, tempFilepath );
+        File.Delete( tempFilepath );
+
+        return context.Data;
+      }
+    }
+
+
+    /// <summary>
+    /// 处理图像
+    /// </summary>
+    /// <param name="context">图片工作流上下文</param>
+    /// <param name="image">要处理的图像</param>
+    /// <returns>处理后的图像</returns>
     protected virtual Image ProcessImage( ImageWorkflowContext context, Image image )
     {
 
@@ -85,6 +109,13 @@ namespace Ivony.Imaging
     }
 
 
+
+    /// <summary>
+    /// 保存图像文件
+    /// </summary>
+    /// <param name="context">图片工作流上下文</param>
+    /// <param name="image">要保存的图像</param>
+    /// <returns>图像文件临时保存位置</returns>
     protected virtual async Task<string> SaveImage( ImageWorkflowContext context, Image image )
     {
 

@@ -15,9 +15,8 @@ namespace Ivony.Imaging
   {
 
 
-    internal ImageWorkflowContext( ImageWorkflow workflow, string sourceUrl, IDictionary<string, object> data )
+    internal ImageWorkflowContext( ImageWorkflow workflow, IDictionary<string, object> data )
     {
-      SourceUrl = sourceUrl;
       Workflow = workflow;
       Data = new Dictionary<string, object>( data );
       SyncRoot = new object();
@@ -28,11 +27,6 @@ namespace Ivony.Imaging
     /// 用于同步的对象
     /// </summary>
     public object SyncRoot { get; private set; }
-
-    /// <summary>
-    /// 图片源 URL
-    /// </summary>
-    public string SourceUrl { get; private set; }
 
     /// <summary>
     /// 处理图片的流水线对象
@@ -51,7 +45,7 @@ namespace Ivony.Imaging
     /// </summary>
     public static ImageWorkflowContext CreateEmpty()
     {
-      return new ImageWorkflowContext( null, null, null );
+      return new ImageWorkflowContext( null, new Dictionary<string, object>() );
     }
   }
 }
