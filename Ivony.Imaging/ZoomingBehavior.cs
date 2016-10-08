@@ -34,7 +34,7 @@ namespace Ivony.Imaging
     /// <summary>
     /// 拉伸缩放，按照画布大小拉伸图片
     /// </summary>
-    public static ZoomingBehavior Extrude { get; } = new FitZooming();
+    public static ZoomingBehavior Extrude { get; } = new ExtrudeZooming();
 
 
 
