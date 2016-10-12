@@ -10,10 +10,9 @@ namespace Ivony.Imaging
 {
   public class WatermarkTask : ImageProcessTask
   {
-    public WatermarkTask( string watermarkPath, string name = null )
+    public WatermarkTask( string watermarkPath )
     {
       WatermarkPath = watermarkPath;
-      _name = name ?? "Watermark_" + Path.GetFileNameWithoutExtension( watermarkPath );
     }
 
 
@@ -24,13 +23,6 @@ namespace Ivony.Imaging
     }
 
 
-    private string _name;
-
-    public override string Name
-    {
-      get { return _name; }
-
-    }
 
 
     public override Image ProcessImage( ImageWorkflowContext context, Image image )

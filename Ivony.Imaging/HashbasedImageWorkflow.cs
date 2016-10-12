@@ -41,7 +41,7 @@ namespace Ivony.Imaging
       var builder = new StringBuilder( result.Length * 2 );
 
       foreach ( var b in result )
-        builder.Append( Convert.ToString( b, 16 ) );
+        builder.AppendFormat( "{0:x2}", b );
 
       return builder.ToString();
     }

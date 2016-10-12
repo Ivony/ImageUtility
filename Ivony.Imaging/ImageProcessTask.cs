@@ -46,5 +46,18 @@ namespace Ivony.Imaging
 
     }
 
+
+    private class BlankImageProcessTask : ImageProcessTask
+    {
+      public override Image ProcessImage( ImageWorkflowContext context, Image image ) { return image; }
+    }
+
+
+    /// <summary>
+    /// 获取一个空白的图片处理任务（即不对图片进行任何处理）
+    /// </summary>
+    public static ImageProcessTask Blank { get; } = new BlankImageProcessTask();
+
+
   }
 }
